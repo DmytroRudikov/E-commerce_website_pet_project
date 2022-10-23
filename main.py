@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash, redirect, url_for, abort, request, jsonify
+from flask import Flask, render_template, flash, redirect, url_for, abort, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 from flask_bootstrap import Bootstrap
@@ -13,13 +13,13 @@ import os
 import forms
 
 POPULAR_THRESHOLD = 3
-stripe.api_key = "sk_test_51LtTSrAIjcuWUmwjk2hQh1PBMaQDymvrkdFg3AjgdFp2BddleaPQAkB2mEYnaKptnr6mN2bxKRhh9UlMu3iU1jRf006Bezw8db"
+stripe.api_key = os.getenv("stripe_api_key")
 
 
 def create_app():
     app = Flask(__name__)
     with app.app_context():
-        app.config['SECRET_KEY'] = 'cf4 F77_c7F5 a29270E6930c535 94B8550b4-357@5bb'
+        app.config['SECRET_KEY'] = os.getenv("flask_secret_key")
         Bootstrap(app)
         ckeditor = CKEditor(app)
         login_manager = LoginManager(app)
@@ -33,7 +33,7 @@ def create_app():
                             base_url=None)
 
         # Connect to DB
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Ecommerce.db'
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("sql_db")
         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         db = SQLAlchemy(app)
 
