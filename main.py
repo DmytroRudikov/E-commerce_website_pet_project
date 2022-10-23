@@ -11,6 +11,9 @@ import stripe
 import datetime
 import os
 import forms
+from dotenv import load_dotenv
+
+load_dotenv()
 
 POPULAR_THRESHOLD = 3
 stripe.api_key = os.getenv("STRIPE_API_KEY")
@@ -33,7 +36,7 @@ def create_app():
                             base_url=None)
 
         # Connect to DB
-        app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("SQL_DB")
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("SQL_DB_PATH")
         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         db = SQLAlchemy(app)
 
