@@ -4,6 +4,15 @@ env:
   STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
   FLASK_SECRET_KEY: ${{ secrets.FLASK_SECRET_KEY }}
   SQL_DB: ${{ secrets.SQL_DB }}
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get environment variables
+        run: |
+            $STRIPE_API_KEY
+            $FLASK_SECRET_KEY
+            $SQL_DB
 defaults:
   run: |
     $STRIPE_API_KEY
