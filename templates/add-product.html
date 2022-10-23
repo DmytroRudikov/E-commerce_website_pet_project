@@ -1,0 +1,38 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% include "header.html" %}
+<!-- Page Header -->
+<header class="bg-dark py-5" style="background-image: url('{{ url_for('static', filename='assets/images/edit-bg.jpg')}}')">
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="text-center text-white">
+      {% if is_edit: %}
+        <h1 class="display-4 fw-bolder">Edit Product</h1>
+        <p class="lead fw-normal mb-0">Update selected product in the database</p>
+      {% else: %}
+        <h1 class="display-4 fw-bolder">New Product</h1>
+        <p class="lead fw-normal mb-0">Add a new product to the database</p>
+      {% endif %}
+    </div>
+  </div>
+</header>
+
+<section class="py-5" style="padding-top:0rem !important">
+  <div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 justify-content-center">
+      <div class="col">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <p style="color: #0f0">{{ message }}</p>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        {{ ckeditor.load() }}
+        {{ ckeditor.config(name='body') }}
+        {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% include "footer.html" %}

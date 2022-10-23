@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+        <title>Shop for the Soul</title>
+        <!-- Favicon-->
+        <link rel="apple-touch-icon" sizes="180x180" href="static/assets/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="static/assets/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="static/assets/favicon/favicon-16x16.png">
+        <link rel="manifest" href="static/assets/favicon/site.webmanifest">
+        <link rel="mask-icon" href="static/assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Bootstrap CSS-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <!-- Font-Awesome-->
+        <script src="https://kit.fontawesome.com/e91749661d.js" crossorigin="anonymous"></script>
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="static/css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand">Shop for the Soul</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url_for('homepage') }}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{{ url_for('homepage') }}">All Products</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="{{ url_for('homepage', popular='popular') }}">Popular Items</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('homepage', sale='sale') }}">Sale</a></li>
+                            </ul>
+                        </li>
+                        {% if user.admin_flag == "admin": %}
+                            <li class="nav-item"><a class="nav-link active" href="{{ url_for('add_product') }}">Add New Product</a></li>
+                        {% endif %}
+                    </ul>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 position-absolute" style="top: 0.5rem; right: 18rem">
+                        {% if not logged_in: %}
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+                            <li class="nav-item"><span class="nav-link active">|</span></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Register</a></li>
+                        {% else: %}
+                            <li class="nav-item"><a class="nav-link">
+                                <div class="commenterImage">
+                                  <img src="{{ user.email|gravatar }}"/>
+                                </div></a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link active">{{ user.user_name }}</a></li>
+                            <li class="nav-item"><span class="nav-link active">&nbsp;</span></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+                        {% endif %}
+                    </ul>
+                    <form class="d-flex" action="{{ url_for('checkout_session') }}">
+                        <button class="btn btn-outline-dark" type="submit">
+                            <i class="bi-cart-fill me-1"></i>
+                            Cart
+                            <span class="badge bg-dark text-white ms-1 rounded-pill">{{ total_for_checkout }}</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </nav>

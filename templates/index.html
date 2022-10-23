@@ -1,0 +1,86 @@
+{% include "header.html" %}
+        <!-- Header-->
+        <header class="bg-dark py-5" style="background-image: url( {{ url_for('static', filename='assets/images/home-header.jpg') }} )">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Shop for the Soul</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">Find something interesting for yourself</p>
+                </div>
+            </div>
+        </header>
+        <!-- Section-->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    {% if products|length != 0: %}
+                    {% for product in products: %}
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            {% if product.quantity != 0: %}
+                                {% if product.sale_flag != None: %}
+                            <!-- Sale badge-->
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+                                {% endif %}
+                            {% endif %}
+                                {% if product.popular_flag != None: %}
+                            <!-- Popular (star) sign-->
+                                    {% if product.quantity != 0: %}
+                                        {% if product.sale_flag != None: %}
+                            <div class="small text-warning mb-2 position-absolute" style="top: 0.5rem; right: 3.5rem">
+                                <div class="bi-star-fill"></div>
+                            </div>
+                                        {% else: %}
+                            <div class="small text-warning mb-2 position-absolute" style="top: 0.5rem; right: 1rem">
+                                <div class="bi-star-fill"></div>
+                            </div>
+                                        {% endif %}
+                                    {% else: %}
+                            <div class="small text-warning mb-2 position-absolute" style="top: 0.5rem; right: 1rem">
+                                <div class="bi-star-fill"></div>
+                            </div>
+                                    {% endif %}
+                                {% endif %}
+                            <!-- Product image-->
+                            <img class="card-img-top" src="{{ product.picture }}" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <a class="stretched-link" href="{{ url_for('get_product_page', prod_id=product.id) }}"></a>
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{ product.product_name }}</h5>
+                                    <!-- Product price-->
+                                    {% if product.quantity != 0: %}
+                                        {% if product.sale_flag != None: %}
+                                        <span class="text-muted text-decoration-line-through">${{ product.old_price }}</span>
+                                        ${{ product.new_price }}
+                                        {% else: %}
+                                        <span>${{ product.new_price }}</span>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            {% if product.quantity == 0: %}
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center" style="font-weight: bold; color: #bb3e03">Out of stock</div>
+                            </div>
+                            {% else: %}
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <form action="{{ url_for('add_to_cart') }}" method="post">
+                                        <input type="hidden" value="{{ product.id }}" name="prod_id" />
+                                        <input type="hidden" value="1" name="quantity" />
+                                        <button class="btn btn-outline-dark mt-auto" style="z-index: 2; position: relative;" type="submit">Add to cart</button>
+                                    </form>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+{% include "footer.html" %}
