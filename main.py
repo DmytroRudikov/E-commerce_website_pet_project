@@ -13,13 +13,13 @@ import os
 import forms
 
 POPULAR_THRESHOLD = 3
-stripe.api_key = os.getenv("stripe_api_key")
+stripe.api_key = os.getenv("STRIPE_API_KEY")
 
 
 def create_app():
     app = Flask(__name__)
     with app.app_context():
-        app.config['SECRET_KEY'] = os.getenv("flask_secret_key")
+        app.config['SECRET_KEY'] = os.getenv("FLASK_SECRET_KEY")
         Bootstrap(app)
         ckeditor = CKEditor(app)
         login_manager = LoginManager(app)
@@ -33,7 +33,7 @@ def create_app():
                             base_url=None)
 
         # Connect to DB
-        app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("sql_db")
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("SQL_DB")
         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         db = SQLAlchemy(app)
 
