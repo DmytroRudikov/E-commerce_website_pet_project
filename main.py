@@ -102,7 +102,7 @@ def create_app():
             user_purchasing = relationship("User", back_populates="checkout_products")
             stripe_checkout_session_id = db.Column(db.String)
 
-        db.create_all()
+        # db.create_all()
 
         # END OF TABLES CONFIGURATION
 
