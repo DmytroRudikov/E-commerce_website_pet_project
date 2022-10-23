@@ -1,4 +1,5 @@
 name: Actions
+on: public
 env:
   STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
   FLASK_SECRET_KEY: ${{ secrets.FLASK_SECRET_KEY }}
