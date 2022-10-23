@@ -11,6 +11,9 @@ import stripe
 import datetime
 import os
 import forms
+from dotenv import load_dotenv
+
+load_dotenv()
 
 POPULAR_THRESHOLD = 3
 stripe.api_key = os.getenv("STRIPE_API_KEY")
