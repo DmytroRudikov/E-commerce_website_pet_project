@@ -104,11 +104,6 @@ with app.app_context():
         user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
         user_purchasing = relationship("User", back_populates="checkout_products")
         stripe_checkout_session_id = db.Column(db.String)
-
-
-    db.create_all()
-
-
     # END OF TABLES CONFIGURATION
 
     # Login_manager initialisation
