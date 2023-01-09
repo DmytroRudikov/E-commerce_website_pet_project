@@ -11358,3 +11358,14 @@ textarea.form-control-lg {
     color:#aaa;
     font-size:11px;
 }
+.cart {
+    margin-left: 3.5%;
+}
+@media (max-width: 991.2px) {
+    .cart {
+        margin-left: 0;
+    }
+    .column {
+        display: none;
+    }
+}

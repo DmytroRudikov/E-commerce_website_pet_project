@@ -46,10 +46,10 @@
                             <li class="nav-item"><a class="nav-link active" href="{{ url_for('add_product') }}">Add New Product</a></li>
                         {% endif %}
                     </ul>
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 position-absolute" style="top: 0.5rem; right: 18rem">
+                    <ul class="navbar-nav ml-auto ml-sm-2">
                         {% if not logged_in: %}
                             <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
-                            <li class="nav-item"><span class="nav-link active">|</span></li>
+                            <li class="nav-item column"><span class="nav-link active">|</span></li>
                             <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Register</a></li>
                         {% else: %}
                             <li class="nav-item"><a class="nav-link">
@@ -62,7 +62,7 @@
                             <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
                         {% endif %}
                     </ul>
-                    <form class="d-flex" action="{{ url_for('checkout_session') }}">
+                    <form class="d-flex cart" action="{{ url_for('checkout_session') }}">
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
