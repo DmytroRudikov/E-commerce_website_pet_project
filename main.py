@@ -225,7 +225,8 @@ with app.app_context():
             if not current_user.is_authenticated:
                 flash("You need to login or register to leave reviews.")
                 return redirect(url_for("login"))
-            comment = Comment(text=form.text.data, date=datetime.date.today().strftime("%d-%b-%Y"),
+            last_comment_id = Comment.query.order_by(Comment.id.desc()).first().id
+            comment = Comment(id=last_comment_id + 1, text=form.text.data, date=datetime.date.today().strftime("%d-%b-%Y"),
                               comment_author=current_user, product_comment_is_for=requested_product)
             db.session.add(comment)
             db.session.commit()
@@ -246,7 +247,8 @@ with app.app_context():
             db.session.commit()
         else:
             author = User.query.get(current_user.get_id())
-            like_obj_to_create = Like(like_flag=1, product_like_is_for=product, like_author=author)
+            last_like_id = Like.query.order_by(Like.id.desc()).first().id
+            like_obj_to_create = Like(id=last_like_id + 1, like_flag=1, product_like_is_for=product, like_author=author)
             db.session.add(like_obj_to_create)
             db.session.commit()
         return "", 204
@@ -273,6 +275,8 @@ with app.app_context():
             for key in product_details_additional:
                 if len(str(product_details_additional[key]).strip()) == 0:
                     product_details.pop(key)
+            last_prod_id = Product.query.order_by(Product.id.desc()).first().id
+            product_details["id"] = last_prod_id + 1
             new_product = Product(**product_details)
             db.session.add(new_product)
             db.session.commit()
