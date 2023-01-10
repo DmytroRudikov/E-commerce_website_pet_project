@@ -323,6 +323,8 @@ with app.app_context():
                 password=form.password.data, method="pbkdf2:sha256", salt_length=16)
             new_user_details["password"] = salted_password
             new_user_details["email"] = new_user_details["email"].lower()
+            last_user_id = User.query.order_by(User.id.desc()).first().id
+            new_user_details["id"] = last_user_id + 1
             new_user = User(**new_user_details)
             db.session.add(new_user)
             db.session.commit()
