@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_ckeditor import CKEditorField
 from wtforms import StringField, SubmitField, PasswordField, FloatField, IntegerField, ValidationError
-from wtforms.validators import DataRequired, Email, URL, AnyOf
+from wtforms.validators import DataRequired, Email, URL, AnyOf, EqualTo, Length
 from markupsafe import Markup
 import email_validator
 
@@ -9,7 +9,8 @@ import email_validator
 # WTForms
 class RegisterForm(FlaskForm):
     email = StringField(label="Email", validators=[DataRequired(Markup("<span style='color: red'>This field is required</span>")), Email(Markup("<span style='color: red'>Invalid email address</span>"))])
-    password = PasswordField(label="Password", validators=[DataRequired(Markup("<span style='color: red'>This field is required</span>"))])
+    password = PasswordField(label="Password", validators=[DataRequired(Markup("<span style='color: red'>This field is required</span>")), Length(5, message=Markup("<span style='color: red'>A password needs to be at least 5 signs long.</span>"))])
+    repeat_password = PasswordField("Repeat Your Password", validators=[DataRequired(Markup("<span style='color: red'>This field is required</span>")), EqualTo("password", Markup("<span style='color: red'>Passwords do not match. Make sure you have provided the same password for both fields.</span>"))])
     user_name = StringField(label="Your Name", validators=[DataRequired(Markup("<span style='color: red'>This field is required</span>"))], description="&nbsp;")
     submit = SubmitField(label="Ready to Shop!")
 

@@ -11368,4 +11368,22 @@ textarea.form-control-lg {
     .column {
         display: none;
     }
+
+    .comments-div-1 {
+        display: none;
+    }
+
+    .comments-header {
+        margin-top: 50px;
+    }
+}
+
+@media (min-width: 991.2px) {
+    .ckeditor-header {
+        display: none;
+    }
+
+    .comments-header {
+        display: none;
+    }
 }

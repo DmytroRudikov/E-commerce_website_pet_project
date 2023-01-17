@@ -101,19 +101,24 @@
     </div>
 </section>
 <!-- Reviews section-->
-<section class="py-5, bg-light" style="padding: 1.5rem 0">
+    <section class="py-5, bg-light" style="padding: 1.5rem 0">
     <div class="container px-4 px-lg-5 mt-5" style="margin-top: 0 !important">
-        <h2 class="fw-bolder mb-4">Leave your review below</h2>
+        <div class="row gx-4 gx-lg-5 row-cols-lg-2 comments-div-1">
+            <h2 class="fw-bolder mb-4">Leave your review below</h2>
+            <h2 class="fw-bolder mb-4">Comments</h2>
+        </div>
         {% if product.comments|length == 0: %}
         <div class="row gx-4 gx-lg-5 justify-content-center">
         {% else: %}
-        <div class="row gx-4 gx-lg-5 row-cols-2 justify-content-center">
+        <div class="row gx-4 gx-lg-5 row-cols-lg-2 justify-content-center">
         {% endif %}
+            <h2 class="fw-bolder mb-4 ckeditor-header">Leave your review below</h2>
             {{ ckeditor.load() }}
             {{ ckeditor.config(name='body') }}
             {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
 
             {% if product.comments|length != 0: %}
+            <h2 class="fw-bolder mb-4 comments-header">Comments</h2>
             <ul class="commentList">
                 {% for comment in product.comments: %}
                 <li>
