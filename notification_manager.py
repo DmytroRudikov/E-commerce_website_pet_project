@@ -14,7 +14,7 @@ class NotificationManager:
 
     def create_msg(self, order_entry):
         products_for_msg = "\n".join(self.list_of_products)
-        total_paid = f"\n\nTotal amount: {order_entry.total_amount}USD"
+        total_paid = "\n\nTotal amount: " + "{:.2f}".format(order_entry.total_amount) + "USD"
         ending = "\n\nThank you for staying with us!"
         self.message = (f"""Subject:'Shop for the Soul' order #{order_entry.id} receipt!
                        \n\nYou have successfully purchased the following products in our shop:\n\n"""
